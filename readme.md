@@ -1,4 +1,4 @@
-## Laravel PHP Framework
+## CSLearning
 
 This project is designed to serve as a tool for management of a learning centre. It was desgined based on the [Computer Science Faculty](cs.dal.ca) Learning Centre at [Dalhousie University](dal.ca), Halifax, NS, Canada.
 
