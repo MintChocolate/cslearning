@@ -11,7 +11,63 @@
 |
 */
 
-Route::get('/', function()
+Route::get('test', function() {
+	return View::make('test');
+});
+
+Route::get('/', array('uses' => 'HomeController@showWelcome', 'as' => 'home'));
+
+// **********************************************
+// *											*
+// *			General User Routes 			*
+// *											*
+// **********************************************
+Route::post('users/login', array('uses' => 'UserController@login'));
+Route::get('users/logout', array('uses' => 'UserController@logout'));
+Route::resource('users','UserController');
+
+
+// **********************************************
+// *											*
+// *				Admin Routes 				*
+// *											*
+// **********************************************
+Route::group(array('prefix' => 'admin', 'before' => array('auth','admin')), function()
 {
-	return View::make('hello');
+    Route::get('dashboard', array('uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard'));
+    Route::resource('tas','TAManagementController');
+});
+
+
+// **********************************************
+// *											*
+// *				TA Routes 					*
+// *											*
+// **********************************************
+Route::group(array('prefix' => 'ta', 'before' => 'auth'), function()
+{
+	Route::get('dashboard', array('uses' => 'TaController@dashboard', 'as' => 'ta.dashboard'));
+	Route::resource('availability', 'AvailabilityController');
+});
+
+
+// **********************************************
+// *											*
+// *			Password Routes 				*
+// *											*
+// **********************************************
+Route::controller('password', 'PasswordController');
+
+
+// **********************************************
+// *											*
+// *				Filters 					*
+// *											*
+// **********************************************
+Route::filter('admin', function()
+{
+    if ( ! Auth::user()->isAdmin() )
+    {
+    	return Redirect::route('ta.dashboard');
+    }
 });

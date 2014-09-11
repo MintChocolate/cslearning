@@ -23,4 +23,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public function isAdmin()
+	{
+		return $this->role == "admin";
+	}
+
+
+	public function scopeTas($query)
+    {
+        return $query->where('role', '=', 'ta');
+    }
 }
