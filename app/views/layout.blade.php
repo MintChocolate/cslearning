@@ -2,9 +2,13 @@
 	<head>
 		<title>CSLearning - @yield('title')</title>
 		<meta name="author" content="Andrey Kulakevich">
-		{{ HTML::style('css/bootstrap.css') }}
-		{{ HTML::script('js/jquery-1.11.1.min.js') }}
-		{{ HTML::script('js/bootstrap.js') }}
+		@section('javascript')
+			{{ HTML::style('css/bootstrap.css') }}
+			{{ HTML::style('css/custom.css') }}
+			{{ HTML::script('js/jquery-1.11.1.min.js') }}
+			{{ HTML::script('js/bootstrap.js') }}
+		@show
+		@yield('javascript-extended')
 	</head>
     <body>
     	<div class="container">

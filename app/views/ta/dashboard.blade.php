@@ -5,9 +5,10 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<p class="lead">
-			Welcome TA!
-		</p>
+	<div class="page-header">
+		<h1>Welcome TA!</h1>
 	</div>
+	<p class="lead">
+		Here you will see any information that is directly important to you.
+	</p>
 @stop

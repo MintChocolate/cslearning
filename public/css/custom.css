@@ -1,0 +1,89 @@
+.table-bordered > thead > tr > td.red,
+.table-bordered > tbody > tr > td.red {
+	background-color: #e74c3c;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.red,
+.table-striped > tbody > tr:nth-child(odd) > th.red {
+	background-color: #e74c3c;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.red,
+.table-striped > tbody > tr:nth-child(odd) > th.red {
+	background-color: #c0392b;
+}
+
+.table-bordered > thead > tr > td.blue,
+.table-bordered > tbody > tr > td.blue {
+	background-color: #3498db;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.blue,
+.table-striped > tbody > tr:nth-child(odd) > th.blue {
+	background-color: #3498db;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.blue,
+.table-striped > tbody > tr:nth-child(odd) > th.blue {
+	background-color: #2980b9;
+}
+
+.table-bordered > thead > tr > td.green,
+.table-bordered > tbody > tr > td.green {
+	background-color: #2ecc71;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.green,
+.table-striped > tbody > tr:nth-child(odd) > th.green {
+	background-color: #2ecc71;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.green,
+.table-striped > tbody > tr:nth-child(odd) > th.green {
+	background-color: #27ae60;
+}
+
+.table-bordered > thead > tr > td.turquoise,
+.table-bordered > tbody > tr > td.turquoise {
+	background-color: #1abc9c;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.turquoise,
+.table-striped > tbody > tr:nth-child(odd) > th.turquoise {
+	background-color: #1abc9c;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.turquoise,
+.table-striped > tbody > tr:nth-child(odd) > th.turquoise {
+	background-color: #16a085;
+}
+
+.table-bordered > thead > tr > td.silver,
+.table-bordered > tbody > tr > td.silver {
+	background-color: #fbfcfc;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.silver,
+.table-striped > tbody > tr:nth-child(odd) > th.silver {
+	background-color: #fbfcfc;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.silver,
+.table-striped > tbody > tr:nth-child(odd) > th.silver {
+	background-color: #bdc3c7;
+}
+
+.table-bordered > thead > tr > td.yellow,
+.table-bordered > tbody > tr > td.yellow {
+	background-color: #f1c40f;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td.yellow,
+.table-striped > tbody > tr:nth-child(odd) > th.yellow {
+	background-color: #f1c40f;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.yellow,
+.table-striped > tbody > tr:nth-child(odd) > th.yellow {
+	background-color: #f39c12;
+}

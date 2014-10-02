@@ -9,18 +9,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
 	protected $table = 'users';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
+	protected $fillable = array('email', 'name');
+
 	protected $hidden = array('password', 'remember_token');
 
 	public function isAdmin()
@@ -28,6 +20,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->role == "admin";
 	}
 
+	public function availabilities()
+	{
+		return $this->hasMany('Availability');
+	}
 
 	public function scopeTas($query)
     {

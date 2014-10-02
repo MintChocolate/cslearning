@@ -35,7 +35,7 @@ Route::resource('users','UserController');
 Route::group(array('prefix' => 'admin', 'before' => array('auth','admin')), function()
 {
     Route::get('dashboard', array('uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard'));
-    Route::resource('tas','TAManagementController');
+    Route::resource('tas', 'TAManagementController', array('only' => array('index','store','update','destroy')));
 });
 
 
@@ -47,7 +47,7 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth','admin')), func
 Route::group(array('prefix' => 'ta', 'before' => 'auth'), function()
 {
 	Route::get('dashboard', array('uses' => 'TaController@dashboard', 'as' => 'ta.dashboard'));
-	Route::resource('availability', 'AvailabilityController');
+	Route::resource('availability', 'AvailabilityController', array('only' => array('index','store')));
 });
 
 

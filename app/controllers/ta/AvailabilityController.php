@@ -1,6 +1,6 @@
 <?php
 
-class AvailabilityController extends BaseController {
+class AvailabilityController extends TaController {
 
 	function __construct()
 	{
@@ -10,7 +10,11 @@ class AvailabilityController extends BaseController {
 
 	public function index()
 	{
-		return View::make('ta/dashboard')
+		$this->data['days'] = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+		$this->data['availabilities'] = Auth::user()->availabilities;
+
+
+		return View::make('ta/availability')
 			->with( $this->data );
 	}
 
