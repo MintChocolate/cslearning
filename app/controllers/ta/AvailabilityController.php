@@ -1,6 +1,6 @@
 <?php
 
-class AvailabilityController extends TaController {
+class AvailabilityController extends BaseController {
 
 	function __construct()
 	{

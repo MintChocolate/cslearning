@@ -1,6 +1,6 @@
 <?php
 
-class TAManagementController extends AdminController {
+class TAManagementController extends BaseController {
 
 	function __construct()
 	{
