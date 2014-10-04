@@ -3,7 +3,6 @@ $(function(){
 
 	$('input[name=highlighter]').click(function(){
 		highlighter = this.value;
-		console.log(highlighter);
 	});
 
 	$('.can-work').change(function(){
@@ -11,18 +10,25 @@ $(function(){
 		var checked = this.checked;
 
 		if (checked)
-			$('.'+day).addClass('yellow').removeClass('red').text('Available');
-		else $('.'+day).removeClass('yellow green').addClass('red').text('Unavailable');
+			changeAvailability($('.'+day), "Available");
+		else changeAvailability($('.'+day), "Unavailable");
 	});
 
 	$( "table" ).selectable({
 		filter: ".selectable",
 		selected: function(event, ui){
-			switch(highlighter) {
-				case "Unavailable": $(ui.selected).addClass('red').removeClass('yellow green').text(highlighter); break;
-				case "Available": $(ui.selected).addClass('yellow').removeClass('red green').text(highlighter); break;
-				case "Preferred": $(ui.selected).addClass('green').removeClass('red yellow').text(highlighter); break;
-			}
+			changeAvailability($(ui.selected), highlighter);
 		}
 	});
+
+	function changeAvailability (td, availability) {
+		var values = {"Unavailable": 0, "Available": 1, "Preferred": 2}
+		var new_value = values[availability];
+		var colors = ['red', 'yellow', 'green'];
+		var new_color = colors[new_value];
+		colors.splice(new_value, new_value + 1);
+		td.addClass(new_color).removeClass(colors.join(" "));
+		td.find('.text').text(availability);
+		td.find('input').val(new_value);
+	}
 });

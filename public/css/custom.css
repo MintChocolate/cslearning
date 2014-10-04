@@ -87,3 +87,7 @@
 .table-striped > tbody > tr:nth-child(odd) > th.yellow {
 	background-color: #f39c12;
 }
+
+td.selectable {
+	cursor: pointer;
+}

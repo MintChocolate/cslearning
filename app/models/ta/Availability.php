@@ -16,6 +16,6 @@ class Availability extends Eloquent {
 
 	public function setScheduleAttribute($value)
 	{
-		return serialize($value);
+		$this->attributes['schedule'] = serialize($value);
 	}	
 }
