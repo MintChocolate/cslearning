@@ -26,6 +26,10 @@
 	</ul>
 
 	<h2>Select Highlighter</h2>
+	<ul>
+		<li>You can highlight multiple blocks at a time, even across days.</li>
+		<li>You can use Ctrl/Command+Z to undo, or Ctrl/Command+Shift+Z to redo any changes.</li>
+	</ul>
 	<ul class="list-inline">
 		<li>
 			<input id="unavailable" name="highlighter" type="radio" value="Unavailable" checked>
@@ -50,8 +54,6 @@
 	{{ Form::open(array('route' => 'ta.availability.store')) }}
 	<button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-floppy-disk"></i> Save Changes</button>
 
-	<br>
-
 	<table class="text-center table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
@@ -70,7 +72,7 @@
 						{{ floor(($time+30)/60) }}:{{ str_pad(($time+30)%60,2,0) }}
 					</td>
 					@foreach ($days as $day)
-						<td class="{{ $day }}
+						<td id="{{ $day }}-{{ $time }}" class="{{ $day }}
 							{{ $availabilities[$day][$time] == 0? "red" : ($availabilities[$day][$time] == 1? "yellow" : "green") }}
 							selectable" 
 							title="{{ $day }} {{ floor(($time)/60) }}:{{ str_pad(($time)%60,2,0) }} - {{ floor(($time+30)/60) }}:{{ str_pad(($time+30)%60,2,0) }}">

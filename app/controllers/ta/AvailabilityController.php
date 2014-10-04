@@ -40,8 +40,7 @@ class AvailabilityController extends BaseController {
 
 		if (count($old_availabilities) == 0)
 		{
-			// No availabilities exist
-			// Create all from scratch
+			//Create availabilities from scratch
 			foreach ($new_availabilities as $day => $schedule)
 			{
 				$availability = new Availability;
@@ -54,8 +53,10 @@ class AvailabilityController extends BaseController {
 		else 
 		{
 			//Update the existing availabilities
-			foreach ($old_availabilities as $availability)
+			foreach ($old_availabilities as $availability){
 				$availability->schedule = $new_availabilities[$availability->day];
+				$availability->save();
+			}
 		}
 
 		return Redirect::back()
