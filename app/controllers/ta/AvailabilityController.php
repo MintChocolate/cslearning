@@ -29,6 +29,14 @@ class AvailabilityController extends BaseController {
 				$this->data['availabilities'][$availability->day] = $availability->schedule;	
 		}
 
+		$availabilities = $this->data['availabilities'];
+
+		$this->data['cant_work'] = array();
+		foreach ($this->data['days'] as $day){
+			if (empty(array_filter($availabilities[$day])))
+				$this->data['cant_work'][$day] = true;
+		}
+
 		return View::make('ta/availability')
 			->with( $this->data );
 	}

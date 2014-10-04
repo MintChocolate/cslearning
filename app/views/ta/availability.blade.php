@@ -19,7 +19,7 @@
 				<label>
 					<input class="can-work" 
 						type="checkbox" value="{{ $day }}" 
-						{{ ! empty(array_filter($availabilities[$day]))? "checked": "" }}> {{ $day }}
+						{{ $cant_work[$day] or "checked" }}> {{ $day }}
 			    </label>
 			</li>
 		@endforeach
@@ -72,11 +72,10 @@
 						{{ floor(($time+30)/60) }}:{{ str_pad(($time+30)%60,2,0) }}
 					</td>
 					@foreach ($days as $day)
-						<td id="{{ $day }}-{{ $time }}" class="{{ $day }}
-							{{ $availabilities[$day][$time] == 0? "red" : ($availabilities[$day][$time] == 1? "yellow" : "green") }}
-							selectable" 
+						<td id="{{ $day }}-{{ $time }}" data-day="{{ $day }}" 
+							class="{{ $availabilities[$day][$time] == 0? "red" : ($availabilities[$day][$time] == 1? "yellow" : "green") }} selectable" 
 							title="{{ $day }} {{ floor(($time)/60) }}:{{ str_pad(($time)%60,2,0) }} - {{ floor(($time+30)/60) }}:{{ str_pad(($time+30)%60,2,0) }}">
-							<input type="hidden" name="availabilities[{{ $day }}][{{ $time }}]" value="{{ $availabilities[$day][$time] or 1 }}">
+							<input data-day="{{ $day }}" type="hidden" name="availabilities[{{ $day }}][{{ $time }}]" value="{{ $availabilities[$day][$time] or 1 }}">
 							<span class="text">{{ $availabilities[$day][$time] == 0? "Unavailable" : ($availabilities[$day][$time] == 1? "Available" : "Preferred") }}</span>
 						</td>
 					@endforeach

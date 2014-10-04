@@ -12,26 +12,30 @@ $(function(){
 		var day = this.value;
 		var checked = this.checked;
 
-		if (checked){
-			$('.'+day).each(function(){
-				var value = $(this).find('.text').text();
-				changes.push({td: this.id, was: value});
-			});
-			undos.push(changes);
-			changes = [];
-			changeAvailability($('.'+day), "Available");
-		}
-		else {
-			changeAvailability($('.'+day), "Unavailable");
-		}
+		$('td[data-day='+day+']').each(function(){
+			var td = $(this);
+			var value = td.find('.text').text();
+			changes.push({td: td, was: value, current: checked?"Available":"Unavailable"});
+		});
+
+		if (checked)
+			changeAvailability($('td[data-day='+day+']'), "Available");
+		else changeAvailability($('td[data-day='+day+']'), "Unavailable");
+		
+		undos.push(changes);
+		changes = [];
 	});
 
 	$( "table" ).selectable({
 		filter: ".selectable",
 		selected: function(event, ui){
-			var value = $(ui.selected).find('.text').text();
-			changes.push({td: $(ui.selected), was: value, current: highlighter});
-			changeAvailability($(ui.selected), highlighter);
+			var td = $(ui.selected);
+			var value = td.find('.text').text();
+			var day = td.attr('data-day');
+			if (highlighter !== "Unavailable")
+				$('input[value='+day+']').prop("checked", true);
+			changes.push({td: td, was: value, current: highlighter});
+			changeAvailability(td, highlighter);
 		},
 		stop: function(event, ui){
 			if(undos.length > 0)
@@ -121,5 +125,20 @@ $(function(){
 		td.addClass(new_color).removeClass(colors.join(" "));
 		td.find('.text').text(availability);
 		td.find('input').val(new_value);
+		var day = td.attr('data-day');
+		if(new_value > 0)
+			$('input[value='+day+']').prop('checked', true);
+		else {
+			var all_zeros = true;
+			$('input[data-day='+day+']').each(function(){
+				if (this.value !== "0"){
+					all_zeros = false;
+					$('input[value='+day+']').prop('checked', true);
+					return false; //Quit each if we found at least one non-zero
+				}
+			});
+			if (all_zeros)
+				$('input[value='+day+']').prop('checked', false);
+		}
 	}
 });
