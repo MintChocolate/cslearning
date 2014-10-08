@@ -5,9 +5,11 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<p class="lead">
-			Welcome Admin!
-		</p>
+	<div class="page-header">
+		<h1>Welcome Admin</h1>
 	</div>
+	<p class="lead">
+		Here you will see the latest changes. <br>
+		Here is also where you will be posting new announcements. 
+	</p>
 @stop

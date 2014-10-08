@@ -25,6 +25,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Availability');
 	}
 
+	public function profile()
+	{
+		return $this->hasOne('Profile');
+	}
+
 	public function scopeTas($query)
     {
         return $query->where('role', '=', 'ta');

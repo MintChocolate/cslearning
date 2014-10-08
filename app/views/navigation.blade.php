@@ -24,10 +24,16 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }} <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="@{{ route('profile', Auth::user()->profile) }}">Profile</a></li>							
-						</ul>
+            				
+            					{{ Form::open(array('url' => 'password/remind', 'class' => 'navbar-form')) }}
+	        						<input type="hidden" name="email" value="{{ Auth::user()->email }}">
+	        						<button class="btn btn-default btn-block">Change Password</button>
+	        					{{ Form::close() }}	
+            			</ul>
 					</li>
-					<li><a href="{{ url('users/logout') }}">Logout</a></li>
+					<li>
+						{{ link_to_route('logout', "Logout") }}
+					</li>
 				</ul>
 			@else
 				{{ Form::open(array('url' => 'users/login', 'class' => 'navbar-form navbar-right')) }}

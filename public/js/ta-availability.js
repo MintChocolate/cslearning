@@ -8,6 +8,32 @@ $(function(){
 		highlighter = this.value;
 	});
 
+	$('#update-hours').click(function(evt){
+		if (undos.length > 0){
+			evt.preventDefault();
+			var form = this.form;
+			bootbox.dialog({
+				title: "Confirmation",
+				message: "You have made changes to your availability.<br>" +
+					"Those changes will not be saved.<br>"+
+					"<b>Do you want to proceed?</b>",
+				buttons: {
+					confirm: {
+						label: "Yes",
+						className: "btn-primary",
+						callback: function() {
+							form.submit();
+						}
+					},
+					cancel: {
+						label: "No",
+						className: "btn-default"
+					}
+				}
+			});
+		}
+	});
+
 	$('.can-work').change(function(){
 		var day = this.value;
 		var checked = this.checked;

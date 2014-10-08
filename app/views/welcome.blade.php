@@ -4,6 +4,10 @@
 	Welcome
 @stop
 
+@section('javascript-extended')
+	{{ HTML::script('js/popover-enable.js') }}
+@stop
+
 @section('content')
 	<div class="row">
 		<div class="col-xs-12">
@@ -15,278 +19,47 @@
 			<h1>Teaching Assistants</h1>
 
 			<div class="row text-center">
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" class="img-responsive" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="Jose Louis Batista Navarrete" data-content="Description">
+				@foreach ($tas as $ta)
+					<div class="col-xs-2">
+						<div class="thumbnail">
+							<img src="{{ asset('images/'.$ta->profile->image) }}" 
+								class="img-responsive"
+								data-toggle="popover" 
+								data-trigger="hover"
+								data-placement="bottom" 
+								title="{{ $ta->name }}" 
+								data-content="{{ $ta->profile->about }}">
+						</div>
 					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<div class="col-xs-2">
-					<div class="thumbnail">
-						<img src="{{ asset('images/andrey.jpg') }}" alt="Fake" class="img-responsive">
-					</div>
-				</div>
-				<script type="text/javascript">
-				$('*[data-toggle=popover]').popover();
-				</script>
+				@endforeach
 			</div>
 		</div>
 
 		<div class="col-xs-12">
 			<h1>Schedule</h1>
-			<table class="table table-bordered">
+			<table class="text-center table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th>Time</th>
-						<th>Sunday</th>
-						<th>Monday</th>
-						<th>Tuesday</th>
-						<th>Wednesday</th>
-						<th>Thursday</th>
-						<th>Friday</th>
-						<th>Saturday</th>
+						<th class="text-center">Time</th>
+						@foreach ($days as $day)
+							<th colspan="2" class="text-center">{{ $day }}</th>
+						@endforeach
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					@for ($time = $start; $time < $end; $time += 30)
+						<tr>
+							<td>{{ $times[$day][$time] }}</td>
+							@foreach ($days as $day)
+								@if ($schedule[$day][$time] == "Closed")
+									<td colspan="2" class="red" title="{{ $day }} {{ $time[$day][$time] }}">Closed</td>
+								@else
+									<td>{{ $schedule[$day][$time][0] }}</td>
+									<td>{{ $schedule[$day][$time][1] }}</td>
+								@endif
+							@endforeach
+						</tr>
+					@endfor
 				</tbody>
 			</table>
 		</div>

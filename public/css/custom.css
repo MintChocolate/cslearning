@@ -91,3 +91,19 @@
 td.selectable {
 	cursor: pointer;
 }
+
+.btn-purple {
+	color: white;
+	background-color: #9b59b6;
+	border-color: #8e44ad;
+}
+
+.btn-purple:hover {
+	color: white;
+	background-color: #8e44ad;
+	border-color: #8e44ad;
+}
+
+.img-thumbnail {
+	width: 100%;
+}

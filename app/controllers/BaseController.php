@@ -4,44 +4,50 @@ class BaseController extends Controller {
 
 	function __construct()
 	{
+		$this->data = array();
+
 		if ( Auth::check() )
 		{
+			$this->data['navigation'] = array();
+
 			if ( Auth::user()->isAdmin() )
 			{
 				// Admin Navigation
-				$dashboard =  array(
+				$this->data['navigation']['dashboard'] =  array(
 					'name' => 'Dashboard',
 					'route' => 'admin.dashboard',
 					'active' => ''
 				);
-				$tas = array(
+				$this->data['navigation']['tas'] = array(
 					'name' => 'Teaching Assistants',
 					'route' => 'admin.tas.index',
 					'active' => ''
 				);
-
-				$this->data['navigation'] = compact('dashboard', 'tas');
+				$this->data['navigation']['availability'] = array(
+					'name' => 'Availability',
+					'route' => 'admin.availability.index',
+					'active' => ''
+				);
 			}
 			else
 			{
 				// TA Navigation
-				$dashboard =  array(
+				$this->data['navigation']['dashboard'] =  array(
 					'name' => 'Dashboard',
 					'route' => 'ta.dashboard',
 					'active' => ''
 				);
-				$availability = Array(
+				$this->data['navigation']['profile'] =  array(
+					'name' => 'Profile',
+					'route' => 'ta.profile.index',
+					'active' => ''
+				);
+				$this->data['navigation']['availability'] = Array(
 					'name' => 'Availability',
 					'route' => 'ta.availability.index',
 					'active' => ''
 				);
-
-				$this->data['navigation'] = compact('dashboard', 'availability');
 			}
-		}
-		else
-		{
-			$this->data = array();
 		}
 	}
 

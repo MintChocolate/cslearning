@@ -1,6 +1,6 @@
 <?php
 
-class TAManagementController extends BaseController {
+class TaManagementController extends BaseController {
 
 	function __construct()
 	{
@@ -29,6 +29,7 @@ class TAManagementController extends BaseController {
 				->withError($info['name'] . " already exists.");
 
 		$ta = User::create($info);
+		Profile::create(array('user_id' => $ta->id));
 		return Redirect::route('admin.tas.index')
 			->withStatus($ta->name . " has been added.");
 	}

@@ -51,6 +51,11 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::missing(function($exception)
+{
+    return Redirect::route('404');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
