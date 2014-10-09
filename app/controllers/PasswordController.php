@@ -9,7 +9,8 @@ class PasswordController extends BaseController {
 	 */
 	public function getRemind()
 	{
-		return View::make('password.remind');
+		return View::make('password.remind')
+			->with($this->data);
 	}
 
 	/**
@@ -22,10 +23,12 @@ class PasswordController extends BaseController {
 		switch ($response = Password::remind(Input::only('email')))
 		{
 			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+				return Redirect::back()
+					->with($this->data)->withError(Lang::get($response));
 
 			case Password::REMINDER_SENT:
-				return Redirect::back()->with('status', "An email to change you password has been sent.");
+				return Redirect::back()
+					->with($this->data)->withStatus("An email to change you password has been sent.");
 		}
 	}
 
@@ -39,7 +42,8 @@ class PasswordController extends BaseController {
 	{
 		if (is_null($token)) App::abort(404);
 
-		return View::make('password.reset')->with('token', $token);
+		return View::make('password.reset')
+			->with($this->data)->withToken($token);
 	}
 
 	/**
@@ -65,10 +69,12 @@ class PasswordController extends BaseController {
 			case Password::INVALID_PASSWORD:
 			case Password::INVALID_TOKEN:
 			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+				return Redirect::back()
+					->with($this->data)->withError(Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/')->withStatus('Password reset successfuly.');
+				return Redirect::to('/')
+					->with($this->data)->withStatus('Password reset successfuly.');
 		}
 	}
 
