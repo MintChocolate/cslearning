@@ -16,8 +16,11 @@ class TaAvailabilityController extends BaseController {
 		$this->data['tas'] = User::tas()->get();
 
 		$this->data['changes_allowed'] = Setting::find('Availability Changes Allowed');
-		if (! $this->data['changes_allowed'])
+		if (! $this->data['changes_allowed']){
 			$this->data['changes_allowed'] = new Setting;
+			$this->data['changes_allowed']->name = "Availability Changes Allowed";
+			$this->data['changes_allowed']->value = "Yes";
+		}
 
 		return View::make('admin/availability')
 			->with($this->data);
