@@ -131,9 +131,9 @@
 						@endif
 					</td>
 					<td>
-						<a href="{{ route('admin.availability.remind', $ta->name) }}" class="btn btn-info btn-block remind">Remind</a>
+						<a href="{{ route('admin.availability.remind', $ta->email) }}" class="btn btn-info btn-block remind">Remind</a>
 					</td>
-					{{ Form::open(array('route' => array('admin.availability.reset', $ta->name) )) }}
+					{{ Form::open(array('route' => array('admin.availability.reset', $ta->email) )) }}
 					<td>
 						<button data-name="Andrey Kulakevich" data-action="reset" class="btn btn-danger btn-block">Reset</button>
 					</td>

@@ -39,8 +39,8 @@ Route::group(array('prefix' => 'admin', 'before' => array('auth','admin')), func
     Route::resource('availability', 'TaAvailabilityController', array('only' => array('index','store')));
     Route::post('availability/import', array('uses' => 'TaAvailabilityController@import', 'as' => 'admin.availability.import'));
     Route::get('availability/export', array('uses' => 'TaAvailabilityController@export', 'as' => 'admin.availability.export'));
-    Route::post('availability/remind/{name}', array('uses' => 'TaAvailabilityController@remind', 'as' => 'admin.availability.remind'));
-    Route::post('availability/reset/{name}', array('uses' => 'TaAvailabilityController@reset', 'as' => 'admin.availability.reset'));
+    Route::post('availability/remind/{email}', array('uses' => 'TaAvailabilityController@remind', 'as' => 'admin.availability.remind'));
+    Route::post('availability/reset/{email}', array('uses' => 'TaAvailabilityController@reset', 'as' => 'admin.availability.reset'));
     Route::resource('settings', 'SettingController', array('only' => 'store'));
 });
 

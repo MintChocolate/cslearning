@@ -26,9 +26,9 @@ class TaAvailabilityController extends BaseController {
 			->with($this->data);
 	}
 
-	public function remind($who)
+	public function remind($email)
 	{
-		if($who == "All")
+		if($email == "All")
 		{
 			$tas = User::tas()->get();
 
@@ -43,7 +43,7 @@ class TaAvailabilityController extends BaseController {
 			return "Reminders Sent";
 		}
 
-		$user = User::where('name','=',$who)->first();
+		$user = User::where('email','=',$email)->first();
 
 		if($user)
 		{
@@ -61,9 +61,9 @@ class TaAvailabilityController extends BaseController {
 		}
 	}
 
-	public function reset($who)
+	public function reset($email)
 	{
-		if($who == "All")
+		if($email == "All")
 		{
 			$tas = User::tas()->get();
 
@@ -75,7 +75,7 @@ class TaAvailabilityController extends BaseController {
 		}
 
 
-		$user = User::where('name','=',$who)->first();
+		$user = User::where('email','=',$email)->first();
 
 		if($user)
 		{
