@@ -16,6 +16,8 @@ class TaAvailabilityController extends BaseController {
 		$this->data['tas'] = User::tas()->get();
 
 		$this->data['changes_allowed'] = Setting::find('Availability Changes Allowed');
+		if (! $this->data['changes_allowed'])
+			$this->data['changes_allowed'] = new Setting;
 
 		return View::make('admin/availability')
 			->with($this->data);
@@ -131,6 +133,16 @@ class TaAvailabilityController extends BaseController {
 
 	public function export()
 	{
+		$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+		$tas = User::tas();
+
+		// $availabilties = array();
+		// foreach ($tas as $ta)
+		// 	$
+
+		//  = User::tas->availabilties;
+
+
 		return Redirect::back()->withError("No ready yet!");
 	}
 
