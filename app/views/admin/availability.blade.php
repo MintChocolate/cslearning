@@ -78,6 +78,7 @@
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 					<h4>Export</h4>
 				</div>
+				{{ Form::open(array('route' => 'admin.availability.export')) }}
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="control-label" for="import-day">Choose Day:</label>
@@ -90,8 +91,9 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					{{ link_to_route('admin.availability.export','Export', array(), array('class' => 'btn btn-primary btn-block')) }}
+					<button type="submit" class="btn btn-primary btn-block">Export</button>
 				</div>
+				{{ Form::close() }}
 			</div>
 		</div>
 	</div>

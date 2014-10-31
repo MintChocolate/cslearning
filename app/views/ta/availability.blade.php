@@ -78,7 +78,7 @@
 		</div>
 	@endif
 
-	<table class="text-center table table-striped table-bordered table-condensed">
+	<table class="text-center table table-hover table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
 				<th class="text-center">Time</th>

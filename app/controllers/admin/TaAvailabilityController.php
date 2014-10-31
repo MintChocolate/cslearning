@@ -136,17 +136,29 @@ class TaAvailabilityController extends BaseController {
 
 	public function export()
 	{
-		$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-		$tas = User::tas();
+		$day = Input::get('day');
+		$name = 'LC CSV_' . $day . ($day == 'All'?'.zip':'.csv');
+		$path = storage_path($name);
 
-		// $availabilties = array();
-		// foreach ($tas as $ta)
-		// 	$
-
-		//  = User::tas->availabilties;
-
-
-		return Redirect::back()->withError("No ready yet!");
+		if ($day == 'All')
+		{
+			$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+			
+			$zip = new ZipArchive;
+			$zip->open($path, ZipArchive::CREATE);
+			
+			foreach ($days as $day)
+			{
+				$name = 'LC CSV_'.$day.'.csv';
+				$csv_path = storage_path($name);
+				File::put($csv_path, $this->generateCSV($day));
+				$zip->addFile($csv_path, $name);
+			}
+			$zip->close();
+		}
+		else File::put($path, $this->generateCSV($day));
+		
+		return Response::download($path);;
 	}
 
 	private function parseCSV($csv)
@@ -180,5 +192,36 @@ class TaAvailabilityController extends BaseController {
 		}
 
 		return $tas;
+	}
+
+	private function generateCSV($day)
+	{
+		$csv = "";
+		$tas = User::tas()->get();
+		
+		$availabilties = array();
+		foreach ($tas as $ta)
+		{
+			$availability = $ta->availabilities()->where('day','=',$day)->first();
+			if (! $availability){
+				$schedule = array();
+				for ($time=600; $time < 1200; $time += 30)
+					$schedule[$time] = 0; 
+			}
+			else $schedule = $availability->schedule;
+			$availabilties[$ta->name] = $schedule;
+			$csv .= ",".$ta->name;
+		}
+		$csv .= "\n";
+
+		for ($time=600; $time < 1200; $time += 30)
+		{
+			$csv .= floor($time/60) .':'. str_pad($time%60,2,0);
+			foreach ($tas as $ta)
+				$csv .= ','.$availabilties[$ta->name][$time] or ",0";
+			$csv .= "\n";
+		}
+
+		return $csv;
 	}
 }
