@@ -60,7 +60,7 @@ class AvailabilityController extends BaseController {
 
 		foreach ($availabilities as $day => $schedule)
 		{
-			$availability = Availability::where('day','=',$day)->first();
+			$availability = Auth::user()->availabilities()->where('day','=',$day)->first();
 			if(!$availability)
 				$availability = new Availability;
 
