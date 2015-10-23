@@ -28,6 +28,11 @@ class BaseController extends Controller {
 					'route' => 'admin.availability.index',
 					'active' => ''
 				);
+				$this->data['navigation']['schedule'] = array(
+					'name' => 'Schedule',
+					'route' => 'admin.schedule.index',
+					'active' => ''
+				);
 			}
 			else
 			{
