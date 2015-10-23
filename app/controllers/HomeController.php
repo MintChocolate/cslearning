@@ -15,10 +15,14 @@ class HomeController extends BaseController {
 
 		$this->data['times'] = array();
 		$this->data['schedule'] = array();
+
 		foreach ($this->data['days'] as $day){
+			$day_records = Schedule::where('day', $day)->orderBy('start_at', 'asc')->get();
 			$this->data['times'][$day] = array();
-			for ($time = $this->data['start']; $time < $this->data['end']; $time += 30){
-				$this->data['schedule'][$day][$time] = "Closed";
+			foreach ($day_records as $day_record) {
+				$time = $day_record['start_at'];
+				$this->data['schedule'][$day][$time][0] = $day_record['ta1_id'];
+				$this->data['schedule'][$day][$time][1] = $day_record['ta2_id'];
 				$this->data['times'][$day][$time] = floor($time/60) .':'. str_pad($time%60,2,0) . ' - ' . floor(($time+30)/60) . ':' . str_pad(($time+30)%60,2,0);
 			}
 		}
