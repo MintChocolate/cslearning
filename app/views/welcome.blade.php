@@ -65,8 +65,23 @@
 								@if ($schedule[$day][$time] == "Closed")
 									<td colspan="2" class="red" title="{{ $day }} {{ $time[$day][$time] }}">Closed</td>
 								@else
-									<td>{{ $schedule[$day][$time][0] }}</td>
-									<td>{{ $schedule[$day][$time][1] }}</td>
+									<td>
+										<label data-toggle="popover" 
+											data-trigger="hover"
+											data-placement="bottom" 
+											title="Courses" 
+											data-content="{{ $schedule[$day][$time][0]['course'] }}">
+											{{ $schedule[$day][$time][0]['name'] }}
+										</label>
+									</td>
+									<td>
+										<label data-toggle="popover" 
+											data-trigger="hover"
+											data-placement="bottom" 
+											title="Courses" 
+											data-content="{{ $schedule[$day][$time][1]['course'] }}">
+											{{ $schedule[$day][$time][1]['name'] }}
+										</label></td>
 								@endif
 							@endforeach
 						</tr>

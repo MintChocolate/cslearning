@@ -7,8 +7,21 @@ class HomeController extends BaseController {
 		$this->data['tas'] = User::tas()->get();
 		$user_names = array();
 		$user_names[0] = "";
+		$ta_courses = array();
+		$ta_courses[0] = "";
 		foreach ($this->data['tas'] as $ta) {
 			$user_names[$ta['id']] = $ta['name'];
+
+			$ta_courses[$ta['id']] = "";
+			$courseuser_list = Courseuser::where('user_id', '=', $ta['id'])->get();
+			$added_course_list = array();
+			foreach ($courseuser_list as $courseuser) {
+				$course_id = $courseuser['course_id'];
+				$course = Course::where('id', '=', $course_id)->get();
+				$course_string = $course[0]['course_id'];
+				array_push($added_course_list, $course_string);
+			}
+			$ta_courses[$ta['id']] = implode(", ", $added_course_list);
 		}
 
 		$this->data['days'] = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
@@ -28,8 +41,10 @@ class HomeController extends BaseController {
 				$time = $day_record['start_at'];
 				$ta1_id = $day_record['ta1_id'] == "" ? 0 : intval($day_record['ta1_id']);
 				$ta2_id = $day_record['ta2_id'] == "" ? 0 : intval($day_record['ta2_id']);
-				$this->data['schedule'][$day][$time][0] = $user_names[$ta1_id];
-				$this->data['schedule'][$day][$time][1] = $user_names[$ta2_id];				
+				$this->data['schedule'][$day][$time][0]['name'] = $user_names[$ta1_id];
+				$this->data['schedule'][$day][$time][0]['course'] = $ta_courses[$ta1_id];
+				$this->data['schedule'][$day][$time][1]['name'] = $user_names[$ta2_id];	
+				$this->data['schedule'][$day][$time][1]['course'] = $ta_courses[$ta2_id];			
 				$this->data['times'][$day][$time] = floor($time/60) .':'. str_pad($time%60,2,0) . ' - ' . floor(($time+30)/60) . ':' . str_pad(($time+30)%60,2,0);
 			}
 		}
@@ -53,7 +68,7 @@ class HomeController extends BaseController {
 					}
 				}
 			}
-			$courseObj['tas'] = implode("; ", $tas);
+			$courseObj['tas'] = implode(", ", $tas);
 
 			array_push($this->data['courses'], $courseObj);
 		}
