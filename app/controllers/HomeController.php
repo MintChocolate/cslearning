@@ -34,6 +34,30 @@ class HomeController extends BaseController {
 			}
 		}
 
+		$this->data['courses'] = array();
+		$courses = Course::get();
+		foreach ($courses as $course) {
+			$courseObj = array();
+			$courseObj['course_string'] = $course['course_id'] . ' ' . $course['course_name'];
+			$courseObj['tas'] = '';
+
+			$tas = array();
+			$courseusers = Courseuser::where('course_id', '=', $course['id'])->get();
+			foreach ($courseusers as $courseuser) {
+				if(!is_null($courseuser['user_id'])) {
+					$ta= User::where('id', '=', $courseuser['user_id'])->first();
+					$ta_name = $ta['name'];
+					
+					if (!is_null($ta_name) && $ta_name != '' && !in_array($ta_name, $tas)) {
+						array_push($tas, $ta_name);
+					}
+				}
+			}
+			$courseObj['tas'] = implode("; ", $tas);
+
+			array_push($this->data['courses'], $courseObj);
+		}
+
 		return View::make('welcome')
 			->with($this->data);
 	}

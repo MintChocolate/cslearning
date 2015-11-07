@@ -34,6 +34,17 @@
 				@endforeach
 			</div>
 		</div>
+		<div class="col-xs-4">
+			<h1>Courses</h1>
+				@foreach ($courses as $course)
+					<h4 data-toggle="popover" 
+								data-trigger="hover"
+								data-placement="bottom" 
+								title="Teaching Assistants" 
+								data-content="{{$course['tas']}}"
+					><a>{{$course['course_string']}}</a></h4>
+				@endforeach
+		</div>		
 
 		<div class="col-xs-12">
 			<h1>Schedule</h1>
