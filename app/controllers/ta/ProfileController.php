@@ -14,6 +14,28 @@ class ProfileController extends BaseController {
 		$this->data['name'] = $user->name;
 		$this->data['profile'] = $user->profile;
 		
+		$courseuser_list = Courseuser::where('user_id', '=', $user->id)->get();
+		$added_course_list = array();
+		foreach ($courseuser_list as $courseuser) {
+			$course_id = $courseuser['course_id'];
+			$course = Course::where('id', '=', $course_id)->get();
+			$course_string = $course[0]['course_id'] . ' ' . $course[0]['course_name'];
+			array_push($added_course_list, $course_string);
+		}
+		$this->data['added_courses'] = $added_course_list;
+
+		$all_courses = Course::get();
+		$can_be_added_courses = array();
+		foreach ($all_courses as $course) {
+			$course_string = $course['course_id'] . ' ' . $course['course_name'];
+			if (!in_array($course_string, $added_course_list)) {
+				
+				array_push($can_be_added_courses, array('id' => $course['id'],
+													'course_string' => $course_string));
+			}
+			
+		}
+		$this->data['can_be_added_courses'] = $can_be_added_courses;
 		return View::make('ta/profile')
 			->with($this->data);
 	}
@@ -29,7 +51,7 @@ class ProfileController extends BaseController {
 				->withError('You must provide a name.')
 				->withInput(Input::except('name'));
 
-		if ($new_profile['year'] < 1)
+		if (!is_null($new_profile['year']) && $new_profile['year'] < 1)
 			return Redirect::back()
 				->withError('You must be at least in your first year.')
 				->withInput(Input::except('profile[year]'));
@@ -45,6 +67,37 @@ class ProfileController extends BaseController {
 		$current_profile->year = $new_profile['year'];
 		
 		$current_profile->save();
+		// create new courses if specified
+		$new_course_id = Input::get('new_course_id');
+		$new_course_name = Input::get('new_course_name');
+		$all_courses = Course::get();
+		foreach ($all_courses as $course) {
+			if(!is_null(Input::get($course['id']))) {
+				$new_course_user = Courseuser::where(array('course_id' => $course['id'],
+													'user_id' => $user->id))->first();
+				if (is_null($new_course_user)){
+					$new_course_user = Courseuser::create(['course_id' => $course['id'],
+													  'user_id' => $user->id]);
+				}
+			}
+		}
+
+		if (!is_null($new_course_id) && !is_null($new_course_name)) {
+			if ($new_course_id != '' && $new_course_name != '') {
+				$new_course = Course::where('course_id', '=', 'CSCI' . $new_course_id)->first();
+				if($new_course == null) {
+					$new_course = Course::create(['course_id' => 'CSCI' . $new_course_id,
+												  'course_name' => $new_course_name]);
+					$new_course->save();
+				}
+				$new_course_user = Courseuser::where(array('course_id' => $new_course->id,
+													'user_id' => $user->id))->first();
+				if (is_null($new_course_user)){
+					$new_course_user = Courseuser::create(['course_id' => $new_course->id,
+													  'user_id' => $user->id]);
+				}
+			}
+		}
 
 		return Redirect::back()
 			->withStatus('Your profile has been updated.');

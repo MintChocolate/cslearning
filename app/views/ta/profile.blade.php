@@ -55,10 +55,39 @@
 					<input type="number" class="form-control" min="1" id="year" max="8" name="profile[year]" required value="{{ $profile->year }}">
 				</div>
 
-				<div class="form-group">
+{{-- 				<div class="form-group">
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 
+			{{ Form::close() }} --}}
+		</div>
+		<div class="col-xs-4">
+			<h4>I can help with the following courses:</h4>
+			<ul>
+				@foreach ($added_courses as $added_course)
+					<li><label class="control-label">{{$added_course}}</label></li>
+				@endforeach
+			</ul>
+
+			<h4>Add more courses by selecting from the list:</h4>
+			{{-- {{ Form::open(array('route' => 'ta.profile.update', 'method' => 'PUT')) }} --}}
+				@foreach ($can_be_added_courses as $can_be_added_course)
+					<div class="form-group">
+						<input type="checkbox" id="selected_courses" name="{{$can_be_added_course['id']}}" value="{{$can_be_added_course['id']}}">
+						<label class="control-label">{{$can_be_added_course['course_string']}}</label>
+					</div>
+				@endforeach	
+				<h4>Or add a new course:</h4>
+				<div class="form-group">
+					<label class="control-label">Course ID:</label>
+					CSCI <input type="number" id="new_course_id" name="new_course_id">
+					<label class="control-label">Course Name:</label>
+					<input type="text" id="new_course_name" name="new_course_name">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary btn-block">Update</button>
+				</div>
+{{-- 				<input type="hidden" class="form-control" id="name" name="name" value="{{ $name }}" required> --}}
 			{{ Form::close() }}
 		</div>
 	</div>
