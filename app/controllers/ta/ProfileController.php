@@ -84,7 +84,15 @@ class ProfileController extends BaseController {
 
 		if (!is_null($new_course_id) && !is_null($new_course_name)) {
 			if ($new_course_id != '' && $new_course_name != '') {
-				$new_course = Course::where('course_id', '=', 'CSCI' . $new_course_id)->first();
+				$new_course_string = 'CSCI' . $new_course_id;
+				foreach ($all_courses as $course) {
+					if($new_course_string == $course['course_id']) {
+						return Redirect::back()
+							->withError('This course has already been enter.');
+					}
+				}
+
+				$new_course = Course::where('course_id', '=', $new_course_string)->first();
 				if($new_course == null) {
 					$new_course = Course::create(['course_id' => 'CSCI' . $new_course_id,
 												  'course_name' => $new_course_name]);
