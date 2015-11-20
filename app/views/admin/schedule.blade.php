@@ -5,9 +5,9 @@
 @stop
 
 @section('javascript-extended')
-	{{ HTML::script('js/danger-check.js') }}
-	{{ HTML::script('js/file-input.js') }}
-	{{ HTML::script('js/reminder.js') }}
+	{{ HTML::script('js/jquery-ui.min.js') }}
+	{{ HTML::script('js/admin-schedules.js')}}
+	{{ HTML::style('css/jquery-ui.min.css')}}
 @stop
 
 @section('content')
@@ -16,54 +16,31 @@
 	</div>
 
 	{{ Form::open(array('route' => 'admin.schedule.index')) }}
-		{{ Form::label('day', 'Select Day:') }}
-		<select id="day_select" name="day_select">
-			@foreach ($days as $day)
-				<option value="{{$day}}">{{$day}}</option>
-			@endforeach
-		</select>
-
-		{{ Form::label('start_time', 'Select Start Time:') }}
-		<select id="start_time_select" name="start_time_select">
-			@foreach ($start_times as $start_time)
-				<option value="{{$start_time}}">{{$start_time}}</option>
-			@endforeach
-		</select>
-
-		{{ Form::label('end_time', 'Select End Time:') }}
-		<select id="end_time_select" name="end_time_select">
-			@foreach ($end_times as $end_time)
-				<option value="{{$end_time}}">{{$end_time}}</option>
-			@endforeach
-		</select>
-
-		{{ Form::label('ta', 'Select Teaching Assistant:') }}
-
-		<select id="ta_index_select" name="ta_index_select">
-			<option value=0>First TA</option>
-			<option value=1>Second TA</option>
-		</select>
-
-		<select id="ta_select" name="ta_select">
-			<option value=0>None</option>
+		<h1>Select Teaching Assistant:</h1>
+		<ul class="list-inline">
+			<li>
+				<input id="0" name="ta_select" type="radio" value="0" checked>
+				<label for="0">None</label>
+			</li>
 			@foreach ($tas as $ta)
-				<option value="{{$ta->id}}">{{$ta->name}}</option>
+				<li>
+					<input id="{{$ta->id}}" name="ta_select" type="radio" value="{{$ta->id}}">
+					<label for="{{$ta->id}}">{{$ta->name}}</label>
+				</li>
 			@endforeach
-		</select>
+			
+		</ul>
 
 		<button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-floppy-disk"></i> Save Changes</button>
 
-
-	{{ Form::close() }}
-
-			<div class="col-xs-12">
+		<div class="col-xs-12">
 			<h1>Schedule</h1>
 			<table class="text-center table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
 						<th class="text-center">Time</th>
 						@foreach ($days as $day)
-							<th colspan="2" class="text-center">{{ $day }}</th>
+							<th colspan="2" class="text-center">{{$day}}</th>
 						@endforeach
 					</tr>
 				</thead>
@@ -73,10 +50,18 @@
 							<td>{{ $times[$day][$time] }}</td>
 							@foreach ($days as $day)
 								@if ($schedule[$day][$time] == "Closed")
-									<td colspan="2" class="red" title="{{ $day }} {{ $time[$day][$time] }}">Closed</td>
+									<td colspan="2" class="red">Closed</td>
 								@else
-									<td>{{ $schedule[$day][$time][0] }}</td>
-									<td>{{ $schedule[$day][$time][1] }}</td>
+									<td id="{{ $day }}-{{ $time }}-{{"0"}}" data-day="{{ $day }}" 
+										class="selectable">
+										<label>{{ $schedule[$day][$time][0]['name']}}</label>
+										<input data-day="{{ $day }}" type="hidden" name="schedule[{{$day}}][{{$time}}][0]" 
+										value="{{ $schedule[$day][$time][0]['id']}}"></td>
+									<td id="{{ $day }}-{{ $time }}-{{"1"}}" data-day="{{ $day }}" 
+										class="selectable">
+										<label>{{ $schedule[$day][$time][1]['name']}}</label>
+										<input data-day="{{ $day }}" type="hidden" name="schedule[{{$day}}][{{$time}}][1]" 
+										value="{{ $schedule[$day][$time][1]['id']}}"></td>
 								@endif
 							@endforeach
 						</tr>
@@ -84,5 +69,6 @@
 				</tbody>
 			</table>
 		</div>
+		{{ Form::close() }}
 	</div>
 @stop
