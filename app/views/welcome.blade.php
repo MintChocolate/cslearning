@@ -40,8 +40,8 @@
 					<h4 data-toggle="popover" 
 								data-trigger="hover"
 								data-placement="bottom" 
-								title="Teaching Assistants" 
-								data-content="{{$course['tas']}}"
+								title="Times" 
+								data-content="{{$course['time']}}"
 					><a>{{$course['course_string']}}</a></h4>
 				@endforeach
 		</div>		
