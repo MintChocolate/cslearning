@@ -34,21 +34,21 @@ class ScheduleController extends BaseController {
 			}
 		}
 
-		return View::make('admin/schedule')->with($this->data);
+		return View::make('admin/schedule' )->with($this->data);
 	}
 
 	public function store() {
-		$schedule = Input::get('schedule');
-		foreach ($schedule as $day => $day_item) {
-			foreach ($day_item as $time => $item) {
-				$record = Schedule::where(array('day' => $day, 'start_at' => $time))->first();
-				$record->ta1_id = $item[0] == 0 ? null : $item[0];
-				$record->ta2_id = $item[1] == 0 ? null : $item[1];
-				$record->save();
-			}
+	$schedule = Input::get('schedule');
+	foreach ($schedule as $day => $day_item) {
+		foreach ($day_item as $time => $item) {
+			$id1 = $item[0] == 0 ? null : $item[0];
+			$id2 = $item[1] == 0 ? null : $item[1];
+			Schedule::where(array('day' => $day, 'start_at' => $time))->update(array('ta1_id' => $id1, 'ta2_id' => $id2));
 		}
-		return Redirect::back()
-			->withStatus('Schedule has been updated!');
+	}
+	return Redirect::back()
+	->withStatus(
+'Schedule has been updated!');
 	}
 
 }
