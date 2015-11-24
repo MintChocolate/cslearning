@@ -15,36 +15,7 @@
 				<h1>Welcome to CSLearning!</h1>
 			</div>
 		</div>
-		<div class="col-xs-12">
-			<h1>Teaching Assistants</h1>
-
-			<div class="row text-center">
-				@foreach ($tas as $ta)
-					<div class="col-xs-2">
-						<div class="thumbnail">
-							<img src="{{ asset('images/'.$ta->profile->image) }}" 
-								class="img-responsive"
-								data-toggle="popover" 
-								data-trigger="hover"
-								data-placement="bottom" 
-								title="{{ $ta->name }}" 
-								data-content="{{ $ta->profile->about }}">
-						</div>
-					</div>
-				@endforeach
-			</div>
-		</div>
-		<div class="col-xs-4">
-			<h1>Courses</h1>
-				@foreach ($courses as $course)
-					<h4 data-toggle="popover" 
-								data-trigger="hover"
-								data-placement="bottom" 
-								title="Times" 
-								data-content="{{$course['time']}}"
-					><a>{{$course['course_string']}}</a></h4>
-				@endforeach
-		</div>		
+	
 
 		<div class="col-xs-12">
 			<h1>Schedule</h1>
@@ -89,5 +60,37 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="col-xs-12 row">
+			<div class="col-xs-8">
+				<h1>Teaching Assistants</h1>
+	
+				<div class="row text-center">
+					@foreach ($tas as $ta)
+						<div class="col-xs-3">
+							<div class="thumbnail">
+								<img src="{{ asset('images/'.$ta->profile->image) }}" 
+									class="img-responsive"
+									data-toggle="popover" 
+									data-trigger="hover"
+									data-placement="bottom" 
+									title="{{ $ta->name }}" 
+									data-content="{{ $ta->profile->about }}">
+							</div>
+						</div>
+					@endforeach
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<h1>Courses</h1>
+					@foreach ($courses as $course)
+						<h4 data-toggle="popover" 
+									data-trigger="hover"
+									data-placement="bottom" 
+									title="Times" 
+									data-content="{{$course['time']}}"
+						><a>{{$course['course_string']}}</a></h4>
+					@endforeach
+			</div>	
+		<div class="col-xs-12">
 	</div>
 @stop
